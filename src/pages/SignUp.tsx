@@ -49,9 +49,9 @@ const SignUp = () => {
       duration: 3000,
     });
     
-    // Navigate to home page after successful registration
+    // Navigate to dashboard page after successful registration
     setTimeout(() => {
-      navigate('/');
+      navigate('/dashboard');
     }, 1000);
   };
 

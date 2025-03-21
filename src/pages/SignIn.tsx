@@ -35,16 +35,16 @@ const SignIn = () => {
     // In a real app, this would connect to an authentication service
     console.log('Sign in attempt:', values);
     
-    // Show success toast and redirect to home
+    // Show success toast and redirect to dashboard
     toast({
       title: "Signed in successfully",
       description: "Welcome back to Duplicate!",
       duration: 3000,
     });
     
-    // Navigate to home page after successful login
+    // Navigate to dashboard page after successful login
     setTimeout(() => {
-      navigate('/');
+      navigate('/dashboard');
     }, 1000);
   };
 
