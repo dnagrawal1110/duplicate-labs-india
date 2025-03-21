@@ -5,57 +5,8 @@ import { Button } from './ui-custom/Button';
 import { Card } from './ui-custom/Card';
 import { useInView, getInViewAnimation } from '@/lib/animations';
 import { Play, PauseCircle, Volume2 } from 'lucide-react';
-
-const voicesData = [
-  {
-    id: "1",
-    name: "Deepika",
-    language: "Hindi",
-    category: "Natural",
-    sample: "नमस्ते, मैं दीपिका हूँ। मैं आपकी मदद कैसे कर सकती हूँ?",
-    gender: "female",
-  },
-  {
-    id: "2",
-    name: "Arjun",
-    language: "Hindi",
-    category: "Natural",
-    sample: "नमस्ते, मैं अर्जुन हूँ। मैं आपकी मदद कैसे कर सकता हूँ?",
-    gender: "male",
-  },
-  {
-    id: "3",
-    name: "Priya",
-    language: "Tamil",
-    category: "Natural",
-    sample: "வணக்கம், நான் பிரியா. நான் உங்களுக்கு எப்படி உதவ முடியும்?",
-    gender: "female",
-  },
-  {
-    id: "4",
-    name: "Rajiv",
-    language: "Bengali",
-    category: "Natural",
-    sample: "নমস্কার, আমি রাজীব। আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
-    gender: "male",
-  },
-  {
-    id: "5",
-    name: "Shreya",
-    language: "Marathi",
-    category: "Natural",
-    sample: "नमस्कार, मी श्रेया आहे. मी तुम्हाला कशी मदत करू शकते?",
-    gender: "female",
-  },
-  {
-    id: "6",
-    name: "Vikram",
-    language: "Telugu",
-    category: "Natural",
-    sample: "నమస్కారం, నేను విక్రమ్. నేను మీకు ఎలా సహాయం చేయగలను?",
-    gender: "male",
-  },
-];
+import { voicesData } from '@/data/voices';
+import { Link } from 'react-router-dom';
 
 const VoiceCard = ({ voice }: { voice: typeof voicesData[0] }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -112,6 +63,9 @@ const VoiceCard = ({ voice }: { voice: typeof voicesData[0] }) => {
 const Voices = () => {
   const { ref, isInView } = useInView();
   
+  // Use only 6 voices for the homepage preview
+  const previewVoices = voicesData.slice(0, 6);
+  
   return (
     <section
       ref={ref as React.RefObject<HTMLDivElement>}
@@ -126,12 +80,14 @@ const Voices = () => {
             <p className="text-foreground/80 text-balance mb-8">
               Explore our catalog of premium AI voices in Indian languages. Each voice is carefully designed to sound natural and authentic.
             </p>
-            <Button>Browse All Voices</Button>
+            <Link to="/voices">
+              <Button>Browse All Voices</Button>
+            </Link>
           </div>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {voicesData.map((voice, i) => (
+          {previewVoices.map((voice, i) => (
             <div key={voice.id} className={getInViewAnimation(isInView, 'fade-in-up', 100 + i * 100)}>
               <VoiceCard voice={voice} />
             </div>
