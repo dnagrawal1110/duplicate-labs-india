@@ -1,13 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container } from './ui-custom/Container';
 import { Button } from './ui-custom/Button';
-import { MenuIcon, X } from 'lucide-react';
+import { MenuIcon, X, LogIn, ArrowRight } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +18,14 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSignIn = () => {
+    navigate('/sign-in');
+  };
+
+  const handleGetStarted = () => {
+    navigate('/sign-up');
+  };
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -73,8 +82,22 @@ const Navbar = () => {
 
           {/* Desktop Call to Action */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm">Sign In</Button>
-            <Button size="sm">Get Started</Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleSignIn}
+              icon={<LogIn className="w-4 h-4" />}
+            >
+              Sign In
+            </Button>
+            <Button 
+              size="sm" 
+              onClick={handleGetStarted}
+              icon={<ArrowRight className="w-4 h-4" />}
+              iconPosition="right"
+            >
+              Get Started
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -126,8 +149,30 @@ const Navbar = () => {
                 Blog
               </Link>
               <div className="flex flex-col space-y-4 pt-4 border-t border-border">
-                <Button variant="outline" size="md" className="w-full">Sign In</Button>
-                <Button size="md" className="w-full">Get Started</Button>
+                <Button 
+                  variant="outline" 
+                  size="md" 
+                  className="w-full"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    navigate('/sign-in');
+                  }}
+                  icon={<LogIn className="w-4 h-4" />}
+                >
+                  Sign In
+                </Button>
+                <Button 
+                  size="md" 
+                  className="w-full"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    navigate('/sign-up');
+                  }}
+                  icon={<ArrowRight className="w-4 h-4" />}
+                  iconPosition="right"
+                >
+                  Get Started
+                </Button>
               </div>
             </nav>
           </Container>
